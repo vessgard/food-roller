@@ -13,7 +13,7 @@ public class IngredientUsage {
 
     @Id
     @GeneratedValue
-    private String id;
+    private long id;
 
     @ManyToOne
     private Ingredient ingredient;

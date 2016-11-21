@@ -1,9 +1,6 @@
 package com.vessgard.foodroller.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Ingredient.
@@ -15,10 +12,13 @@ public class Ingredient {
 
     @Id
     @GeneratedValue
-    private String id;
+    private long id;
 
     @Column(nullable = false)
     private String name;
+
+    @ManyToOne
+    private IngredientGroup group;
 
     protected Ingredient() {
     }
@@ -27,12 +27,16 @@ public class Ingredient {
         this.name = name;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public IngredientGroup getGroup() {
+        return group;
+    }
+
+    public void setGroup(IngredientGroup group) {
+        this.group = group;
     }
 
     @Override
@@ -42,14 +46,13 @@ public class Ingredient {
 
         Ingredient that = (Ingredient) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (id != that.id) return false;
         return name != null ? name.equals(that.name) : that.name == null;
-
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }

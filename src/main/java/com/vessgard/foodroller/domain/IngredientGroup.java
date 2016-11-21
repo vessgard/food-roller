@@ -15,13 +15,10 @@ public class IngredientGroup {
 
     @Id
     @GeneratedValue
-    private String id;
+    private long id;
 
     @Column(nullable = false)
     private String name;
-
-    @OneToMany
-    private Set<Ingredient> ingredients = new HashSet<Ingredient>();
 
     protected IngredientGroup() {
     }
@@ -30,19 +27,7 @@ public class IngredientGroup {
         this.name = name;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void addIngredient(Ingredient ingredient) {
-        this.ingredients.add(ingredient);
-    }
-
-    public Set<Ingredient> getIngredients() {
-        return Collections.unmodifiableSet(ingredients);
     }
 }
